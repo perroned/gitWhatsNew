@@ -1,4 +1,8 @@
 #!/bin/bash
+# ---------------------------------------------------
+# Created by Danny Perrone (perroned) on May 1, 2015
+# ---------------------------------------------------
+
 # declare variables
 declare -a branches # array of branch name
 branchesToShow=3 # default to 3 branches shown
@@ -105,15 +109,15 @@ function moveToBaseOrDie {
 function processArgs {
     # usage
     if [[ $* =~ .*-[\ ]*help.* ]]; then
-        echo -e "Usage: $(basename $0) [-b number] [-c number] [--onlyMyself] [--showCommitId]" >&2
+        echo -e "Usage: $(basename $0) [-b number] [-c number] [--me] [--id]" >&2
         echo -e "where:" >&2
         echo -e "\t-b" >&2
         echo -e "\t\t\tthe number of branches to show" >&2
         echo -e "\t-c" >&2
         echo -e "\t\t\tthe number of commits to show (per branch)" >&2
-        echo -e "\t--onlyMyself" >&2
+        echo -e "\t--me" >&2
         echo -e "\t\t\tonly display commits from you" >&2
-        echo -e "\t--showCommitId" >&2
+        echo -e "\t--id" >&2
         echo -e "\t\t\tdisplay the ID of commits" >&2
         exit 1
     fi
