@@ -26,7 +26,7 @@ function displayLog {
     displayHeader
 
     for branch in $branches; do
-        if [[ "$branch" == "$currentBranch" ]]; then 
+        if [[ "$branch" == "$currentBranch" ]]; then
             echo "* On branch ==> $branch *"
         else
             echo "$branch:"
@@ -39,7 +39,7 @@ function displayLog {
         do
             if [[ "$line" =~ ^commit.* ]]; then
                 toIgnore=false
-                if [[ $showCommitId ]]; then 
+                if [[ $showCommitId ]]; then
                     commit+=("\n\tCommit: $(echo $line | cut -d' ' -f2)\n") # take the commit ID
                 else
                     commit+=("\n") # the user doesn't want to see the commit ID, add a blank line
@@ -60,7 +60,7 @@ function displayLog {
 
                 commit+=("\t$line\n") # add the author
             elif [[ $toIgnore == false && "$line" =~ ^Date.* ]]; then
-                commit+=("\t$(echo $line | sed 's/[-+][0-9]\{4\}$//')\n\n") # cut off timezone
+                commit+=("\t$(echo $line | sed 's/[-+][0-9]\{4\}$//' | sed 's/Date:\ /Date\ \ :\ /')\n\n") # cut off timezone
             elif [[ $toIgnore == false && "$line" =~ ^$ ]]; then : # blank line
             else
                 if [[ $toIgnore == false ]]; then
@@ -95,7 +95,7 @@ function getUserCredentials {
 function moveToBaseOrDie {
     # go to the root of the working git tree
     treeRoot="$(git rev-parse --show-cdup)"
-    if [[ "$treeRoot" != "" ]]; then 
+    if [[ "$treeRoot" != "" ]]; then
         cd "$treeRoot"
     fi
     # check for .git directory
